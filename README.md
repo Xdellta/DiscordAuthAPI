@@ -1,16 +1,19 @@
 # DiscordAuthAPI
 This project serves as the backend authentication service for integrating Discord OAuth2 into applications. It enables seamless user authentication and provides API endpoints tailored for managing Discord user data.
-<br>
+
+<br><br>
 
 ## 🛠️ Tools and Technologies
 ![Express](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-<br>
+
+<br><br>
 
 ## 📜 License
 [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)<br>
 By [Patryk Piotrowski](https://github.com/Xdellta)
-<br>
+
+<br><br>
 
 ## 📌 Endpoint Specification
 ```sh
@@ -34,7 +37,8 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
   - **Success (200):** JSON object with the user's Discord data.
   - **Error (400):** If no `code` is provided.
   - **Error (500):** If the authentication process fails.
-<br>
+
+<br><br>
 
 ## 🚀 Getting Started
 **1.** Clone the repository:
