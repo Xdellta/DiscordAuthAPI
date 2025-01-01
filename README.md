@@ -1,4 +1,4 @@
-# DiscordAuthApi
+# DiscordAuthAPI
 This project serves as the backend authentication service for integrating Discord OAuth2 into applications. It enables seamless user authentication and provides API endpoints tailored for managing Discord user data.
 
 <br>
@@ -19,8 +19,8 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 
 **1.** Clone the repository:
 ```sh
-git clone https://github.com/Xdellta/DiscordAuthApi.git
-cd DiscordAuthApi
+git clone https://github.com/Xdellta/DiscordAuthAPI.git
+cd DiscordAuthAPI
 ```
 
 **2.** Install dependencies:

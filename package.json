@@ -16,5 +16,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xdellta/DiscordAuthApi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Xdellta/DiscordAuthApi/issues"
+  },
+  "homepage": "https://github.com/Xdellta/DiscordAuthApi#readme"
 }
