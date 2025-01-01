@@ -20,23 +20,42 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 /auth/login
 ```
 - **Method:** `GET`
-- **Description:** Redirects the user to Discord's OAuth2 authorization page.
-- **Request Parameters:** None.
-- **Response:** Redirects to Discord's OAuth2 login page with the appropriate query parameters (`client_id`, `response_type`, `redirect_uri`, and `scope`).
+- **Description:** Redirects user to Discord's OAuth2 login page.
+- **Request:** None
+- **Response:** Redirect to Discord login with `client_id`, `redirect_uri`, and `scope` parameters.
 <br>
 
 ```sh
 /auth/login-callback
 ```
 - **Method:** `GET`
-- **Description:** Handles the OAuth2 callback from Discord. Exchanges the authorization code for an access token and retrieves the authenticated user's data.
-- **Request Parameters:**
-  - **Query:**
-    - `code` (string): Authorization code provided by Discord after user authentication.
-- **Response:**
-  - **Success (200):** JSON object with the user's Discord data (`access_token`, `refresh_token`, `expires_in`, `scope`, and `token_type`).
-  - **Error (400):** If no `code` is provided in the query string.
-  - **Error (500):** If the authentication process fails (e.g., invalid response from Discord).
+- **Description:** Handles OAuth2 callback, exchanges code for access token.
+- **Request:**
+  - `code` (string): Authorization code.
+- **Response:** 
+  - **Success (200):** Returns `access_token`, `refresh_token`, and user data.
+  - **Error (400):** If `code` is missing.
+  - **Error (500):** On authentication failure.
+<br>
+
+```sh
+/user/getUser
+```
+- **Method:** `GET`
+- **Description:** Retrieves user data using the access token.
+- **Cookie:** The `access_token` cookie is used for authentication.
+- **Request:** None
+- **Response:** User data (username, discriminator, ID).
+<br>
+
+```sh
+/user/getUserRoles
+```
+- **Method:** `GET`
+- **Description:** Retrieves user roles on a specific guild using the access token from cookies.
+- **Cookie:** The `access_token` cookie is used for authentication.
+- **Request:** None
+- **Response:** User roles in the guild.
 
 <br><br>
 
