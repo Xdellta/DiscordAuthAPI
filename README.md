@@ -16,15 +16,17 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 <br>
 
 ## 📌 Endpoint Specification
-### `/auth/login`
+```sh
+/auth/login
+```
 - **Method:** GET
 - **Description:** Redirects the user to Discord's OAuth2 authorization page.
 - **Request Parameters:** None.
 - **Response:** Redirects to Discord's OAuth2 login page with the appropriate query parameters.
 
----
-
-### `/auth/login-callback`
+```sh
+/auth/login-callback
+```
 - **Method:** GET
 - **Description:** Handles the OAuth2 callback from Discord. Exchanges the authorization code for an access token and retrieves the authenticated user's data.
 - **Request Parameters:**
