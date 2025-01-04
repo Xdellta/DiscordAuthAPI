@@ -74,4 +74,36 @@ async function loginCallback(req, res, next) {
   }
 }
 
-module.exports = { login, loginCallback };
+
+// '/auth/logout'
+function logout(req, res, next) {
+  try {
+    const accessToken = req.cookies.access_token;
+    const refreshToken = req.cookies.refresh_token;
+
+    if (!accessToken || !refreshToken) {
+      throw { status: 400, message: 'Access token or refresh token missing' };
+    }
+
+    res.clearCookie('access_token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+    });
+
+    res.clearCookie('refresh_token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Successfully logged out',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { login, loginCallback, logout };

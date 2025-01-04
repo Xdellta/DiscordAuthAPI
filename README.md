@@ -39,6 +39,17 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 <br>
 
 ```sh
+/auth/logout
+```
+- **Method:** `GET`
+- **Description:** Logs out the user by clearing authentication cookies.
+- **Request:** None
+- **Response:** 
+  - **Success (200):** JSON response confirming successful logout.
+  - **Error (400):** If access_token or refresh_token cookies are missing.
+<br>
+
+```sh
 /user/getUser
 ```
 - **Method:** `GET`
