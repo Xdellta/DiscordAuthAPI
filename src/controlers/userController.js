@@ -1,27 +1,20 @@
 const axios = require('axios');
+const { fetchUserByToken, fetchRolesByUserId } = require('../services/userServices');
 
 // '/user/getUser'
 async function getUserByToken(req, res, next) {
-  const accessToken = req.cookies.access_token;
-
-  if (!accessToken) {
-    throw { status: 400, message: 'Access token missing' };
-  }
-
   try {
-    const userResponse = await axios.get('https://discord.com/api/v10/users/@me', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const accessToken = req.cookies.access_token;
 
-    if (!userResponse.data) {
-      throw { status: 404, message: 'User not found' };
+    if (!accessToken) {
+      throw { status: 400, message: 'Access token is missing' };
     }
+
+    const userResponse = await fetchUserByToken(accessToken);
 
     return res.status(200).json({
       success: true,
-      user: userResponse.data,
+      user: userResponse
     });
 
   } catch (error) {
@@ -30,54 +23,28 @@ async function getUserByToken(req, res, next) {
 }
 
 
-// '/user/getUserRoles'
+// '/user/getUserRoles' - dokończyć !!!!!!!!!!!!!!!!!!!!!!!!
 async function getUserRolesByToken(req, res, next) {
-  const accessToken = req.cookies.access_token;
-
-  if (!accessToken) {
-    throw { status: 400, message: 'Access token is missing' };
-  }
-
-  const guildId = process.env.DISCORD_GUILD_ID;
-
-  if (!guildId) {
-    throw { status: 400, message: 'Guild ID is missing' };
-  }
-
   try {
-    const userResponse = await axios.get('https://discord.com/api/v10/users/@me', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const accessToken = req.cookies.access_token;
 
-    const userId = userResponse.data.id;
+    if (!accessToken) {
+      throw { status: 400, message: 'Access token is missing' };
+    }
+    
+    const userResponse = await fetchUserByToken(accessToken);
+
+    const userId = userResponse.id
 
     if (!userId) {
-      throw { status: 404, message: 'User not found' };
+      throw { status: 404, message: 'User ID not found' };
     }
 
-    const discordToken = process.env.DISCORD_TOKEN;
+    const rolesResponse = await fetchRolesByUserId(userId);
 
-    if (!discordToken) {
-      throw { status: 400, message: 'Discord Token is missing' };
-    }
-
-    const rolesResponse = await axios.get(`https://discord.com/api/v10/guilds/${guildId}/members/${userId}`, {
-      headers: {
-        Authorization: `Bot ${discordToken}`,
-      },
-    });
-
-    if (!rolesResponse.data.roles) {
-      throw { status: 500, message: 'Failed to fetch user roles' };
-    }
-
-    const roles = rolesResponse.data.roles;
-    
     return res.status(200).json({
       success: true,
-      roles: roles
+      roles: rolesResponse
     });
 
   } catch (error) {

@@ -3,13 +3,15 @@ const axios = require('axios');
 // '/auth/login'
 async function login(req, res, next) {
   try {
-    if (!process.env.DISCORD_CLIENT_ID) {
+    const discordBotTokenId = process.env.DISCORD_BOT_CLIENT_ID;
+
+    if (!discordBotTokenId) {
       throw { status: 400, message: 'Missing Discord Client ID.' };
     }
 
     const redirectUri = encodeURIComponent(`${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}/auth/login-callback`);
     const scope = 'identify+guilds+guilds.members.read';
-    const url = `https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&response_type=code&redirect_uri=${redirectUri}&scope=${scope}`;
+    const url = `https://discord.com/oauth2/authorize?client_id=${discordBotTokenId}&response_type=code&redirect_uri=${redirectUri}&scope=${scope}`;
   
     return res.redirect(url);
   } catch (error) {
@@ -30,8 +32,8 @@ async function loginCallback(req, res, next) {
     const redirectUri = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}/auth/login-callback`;
 
     const params = new URLSearchParams({
-      client_id: process.env.DISCORD_CLIENT_ID,
-      client_secret: process.env.DISCORD_CLIENT_SECRET,
+      client_id: process.env.DISCORD_BOT_CLIENT_ID,
+      client_secret: process.env.DISCORD_BOT_CLIENT_SECRET,
       code,
       grant_type: 'authorization_code',
       redirect_uri: redirectUri,
