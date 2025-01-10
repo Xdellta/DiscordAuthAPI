@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-// '/auth/login'
+// '/api/auth/login'
 async function login(req, res, next) {
   try {
     const discordBotTokenId = process.env.DISCORD_BOT_CLIENT_ID;
@@ -9,9 +9,11 @@ async function login(req, res, next) {
       throw { status: 400, message: 'Missing Discord Client ID.' };
     }
 
-    const redirectUri = encodeURIComponent(`${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}/auth/login-callback`);
+    const redirectUri = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}/api/auth/login-callback`;
+    const encodedRedirectUri = encodeURIComponent(redirectUri);
     const scope = 'identify+guilds+guilds.members.read';
-    const url = `https://discord.com/oauth2/authorize?client_id=${discordBotTokenId}&response_type=code&redirect_uri=${redirectUri}&scope=${scope}`;
+    const url = `https://discord.com/oauth2/authorize?client_id=${discordBotTokenId}&response_type=code&redirect_uri=${encodedRedirectUri}&scope=${scope}`;
+
   
     return res.redirect(url);
   } catch (error) {
@@ -20,7 +22,7 @@ async function login(req, res, next) {
 }
 
 
-// '/auth/login-callback'
+// '/api/auth/login-callback'
 async function loginCallback(req, res, next) {
   const code = req.query.code;
 
@@ -29,7 +31,7 @@ async function loginCallback(req, res, next) {
   }
 
   try {
-    const redirectUri = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}/auth/login-callback`;
+    const redirectUri = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}/api/auth/login-callback`;
 
     const params = new URLSearchParams({
       client_id: process.env.DISCORD_BOT_CLIENT_ID,
@@ -77,10 +79,10 @@ async function loginCallback(req, res, next) {
 }
 
 
-// '/auth/logout'
+// '/api/auth/logout'
 function logout(req, res, next) {
   try {
-    const accessToken = req.cookies.access_token;
+    const accessToken = req.accessToken;
     const refreshToken = req.cookies.refresh_token;
 
     if (!accessToken || !refreshToken) {

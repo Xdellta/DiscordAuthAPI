@@ -17,7 +17,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 
 ## 📌 Endpoint Specification
 ```sh
-/auth/login
+/api/auth/login
 ```
 - **Method:** `GET`
 - **Description:** Redirects user to Discord's OAuth2 login page.
@@ -26,7 +26,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 <br>
 
 ```sh
-/auth/login-callback
+/apiauth/login-callback
 ```
 - **Method:** `GET`
 - **Description:** Handles OAuth2 callback, exchanges code for access token.
@@ -39,7 +39,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 <br>
 
 ```sh
-/auth/logout
+/api/auth/logout
 ```
 - **Method:** `GET`
 - **Description:** Logs out the user by clearing authentication cookies.
@@ -50,7 +50,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 <br>
 
 ```sh
-/user/getUser
+/api/user/getUser
 ```
 - **Method:** `GET`
 - **Description:** Retrieves user data using the access token.
@@ -60,7 +60,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 <br>
 
 ```sh
-/user/getUserRoles
+/api/user/getUserRoles
 ```
 - **Method:** `GET`
 - **Description:** Retrieves user roles on a specific guild using the access token from cookies.

@@ -1,4 +1,6 @@
-async function isAuthentication(req, res, next) {
+const axios = require('axios');
+
+async function isLogged(req, res, next) {
   try {
     const accessToken = req.cookies.access_token;
 
@@ -16,11 +18,14 @@ async function isAuthentication(req, res, next) {
       throw { status: 401, message: 'Unauthorized: Invalid access token.' };
     }
 
-    next(userResponse.data);
+    req.user = userResponse.data;
+    req.accessToken = accessToken;
+
+    next();
 
   } catch(error) {
     next(error);
   }
 }
 
-module.exports = {isAuthentication};
+module.exports = { isLogged };

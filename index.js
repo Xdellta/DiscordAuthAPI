@@ -1,8 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
-const authRoutes = require('./src/routes/authRoutes');
-const userRoutes = require('./src/routes/userRoutes');
+const indexRoutes = require('./src/routes/index');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();
@@ -12,8 +11,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+app.use('/api', indexRoutes);
 app.use(errorHandler);
 
 app.get('/', (req, res) => {

@@ -1,10 +1,10 @@
 const axios = require('axios');
 const { fetchUserByToken, fetchRolesByUserId } = require('../services/userServices');
 
-// '/user/getUser'
+// '/api/user/getUser'
 async function getUserByToken(req, res, next) {
   try {
-    const accessToken = req.cookies.access_token;
+    const accessToken = req.accessToken;
 
     if (!accessToken) {
       throw { status: 400, message: 'Access token is missing' };
@@ -23,10 +23,10 @@ async function getUserByToken(req, res, next) {
 }
 
 
-// '/user/getUserRoles' - dokończyć !!!!!!!!!!!!!!!!!!!!!!!!
+// '/api/user/getUserRoles'
 async function getUserRolesByToken(req, res, next) {
   try {
-    const accessToken = req.cookies.access_token;
+    const accessToken = req.accessToken;
 
     if (!accessToken) {
       throw { status: 400, message: 'Access token is missing' };
