@@ -4,10 +4,14 @@ const errorHandler = (err, req, res, next) => {
 
   if (environment === 'development') {
     console.error(`[Error] ${err.message}`);
-    console.error(err.stack);
+
+    if(err.stack) {
+      console.error(err.stack);
+    }
 
     return res.status(statusCode).json({
       success: false,
+      status: statusCode,
       message: err.message || 'An unexpected error occurred.',
       stack: err.stack,
     });
@@ -15,6 +19,7 @@ const errorHandler = (err, req, res, next) => {
   } else {
     res.status(statusCode).json({
       success: false,
+      status: statusCode,
       message: err.message || 'An unexpected error occurred.',
     });
   }

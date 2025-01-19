@@ -6,15 +6,17 @@ const { createHttpError } = require('../utils/createHttpError');
 async function getUserByToken(req, res, next) {
   try {
     const accessToken = req.accessToken;
-
     if (!accessToken) {
       throw createHttpError('Access token is missing', 400);
     }
 
-    const { success, data: user } = await fetchUserByToken(accessToken);
+    const { success: userSuccess, data: user } = await fetchUserByToken(accessToken);
+    if (!userSuccess || !user) {
+      return next(createHttpError('User not found or invalid token', 404));
+    }
 
     return res.status(200).json({
-      success,
+      success: true,
       user,
     });
 
@@ -27,30 +29,31 @@ async function getUserByToken(req, res, next) {
 // '/api/user/getUserRoles'
 async function getUserRolesByToken(req, res, next) {
   try {
-    const accessToken = req.accessToken;
+    const { accessToken } = req;
 
     if (!accessToken) {
-      throw createHttpError('Access token is missing', 400);
-    }
-    
-    const userResponse = await fetchUserByToken(accessToken);
-
-    const userId = userResponse.id
-
-    if (!userId) {
-      throw createHttpError('User ID not found', 404);
+      return next(createHttpError('Access token is missing', 400));
     }
 
-    const rolesResponse = await fetchRolesByUserId(userId);
+    const { success: userSuccess, data: user } = await fetchUserByToken(accessToken);
+    if (!userSuccess || !user?.id) {
+      return next(createHttpError('User not found or invalid token', 404));
+    }
+
+    const { success: rolesSuccess, data: roles } = await fetchRolesByUserId(user.id);
+    if (!rolesSuccess || !roles) {
+      return next(createHttpError('Roles not found', 404));
+    }
 
     return res.status(200).json({
       success: true,
-      roles: rolesResponse
+      roles
     });
 
   } catch (error) {
     next(error);
   }
 }
+
 
 module.exports = { getUserByToken, getUserRolesByToken };
