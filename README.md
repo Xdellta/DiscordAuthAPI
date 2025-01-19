@@ -26,7 +26,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 <br>
 
 ```sh
-/apiauth/login-callback
+/api/auth/login-callback
 ```
 - **Method:** `GET`
 - **Description:** Handles OAuth2 callback, exchanges code for access token.

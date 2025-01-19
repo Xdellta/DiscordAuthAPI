@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { createHttpError } = require('../utils/createHttpError');
 
 // '/api/auth/login'
 async function login(req, res, next) {
@@ -6,7 +7,7 @@ async function login(req, res, next) {
     const discordBotTokenId = process.env.DISCORD_BOT_CLIENT_ID;
 
     if (!discordBotTokenId) {
-      throw { status: 400, message: 'Missing Discord Client ID.' };
+      throw createHttpError('Missing Discord Client ID', 400);
     }
 
     const redirectUri = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}/api/auth/login-callback`;
@@ -27,7 +28,7 @@ async function loginCallback(req, res, next) {
   const code = req.query.code;
 
   if (!code) {
-    throw { status: 400, message: 'Missing authorization code' };
+    throw createHttpError('Missing authorization code', 400);
   }
 
   try {
@@ -49,7 +50,7 @@ async function loginCallback(req, res, next) {
     const tokenResponse = await axios.post('https://discord.com/api/oauth2/token', params, { headers });
 
     if (!tokenResponse.data.access_token || !tokenResponse.data.refresh_token) {
-      throw { status: 500, message: 'Failed to retrieve access or refresh tokens from Discord' };
+      throw createHttpError('Failed to retrieve access or refresh tokens from Discord', 500);
     }
 
     const { access_token, refresh_token, expires_in } = tokenResponse.data;
@@ -86,7 +87,7 @@ function logout(req, res, next) {
     const refreshToken = req.cookies.refresh_token;
 
     if (!accessToken || !refreshToken) {
-      throw { status: 400, message: 'Access token or refresh token missing' };
+      throw createHttpError('Access token or refresh token missing', 400);
     }
 
     res.clearCookie('access_token', {

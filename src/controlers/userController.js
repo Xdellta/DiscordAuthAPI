@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { fetchUserByToken, fetchRolesByUserId } = require('../services/userServices');
+const { createHttpError } = require('../utils/createHttpError');
 
 // '/api/user/getUser'
 async function getUserByToken(req, res, next) {
@@ -7,14 +8,14 @@ async function getUserByToken(req, res, next) {
     const accessToken = req.accessToken;
 
     if (!accessToken) {
-      throw { status: 400, message: 'Access token is missing' };
+      throw createHttpError('Access token is missing', 400);
     }
 
-    const userResponse = await fetchUserByToken(accessToken);
+    const { success, data: user } = await fetchUserByToken(accessToken);
 
     return res.status(200).json({
-      success: true,
-      user: userResponse
+      success,
+      user,
     });
 
   } catch (error) {
@@ -29,7 +30,7 @@ async function getUserRolesByToken(req, res, next) {
     const accessToken = req.accessToken;
 
     if (!accessToken) {
-      throw { status: 400, message: 'Access token is missing' };
+      throw createHttpError('Access token is missing', 400);
     }
     
     const userResponse = await fetchUserByToken(accessToken);
@@ -37,7 +38,7 @@ async function getUserRolesByToken(req, res, next) {
     const userId = userResponse.id
 
     if (!userId) {
-      throw { status: 404, message: 'User ID not found' };
+      throw createHttpError('User ID not found', 404);
     }
 
     const rolesResponse = await fetchRolesByUserId(userId);
