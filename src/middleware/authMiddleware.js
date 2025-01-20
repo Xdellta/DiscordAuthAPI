@@ -1,24 +1,20 @@
-const axios = require('axios');
+const { fetchUserByToken } = require('../services/userServices');
+const { createHttpError } = require('../utils/createHttpError');
 
 async function isLogged(req, res, next) {
   try {
     const accessToken = req.cookies.access_token;
 
     if (!accessToken) {
-      throw { status: 401, message: 'Unauthorized: Access token is missing.' };
+      throw createHttpError('Unauthorized: Access token is missing', 401);
     }
 
-    const userResponse = await axios.get('https://discord.com/api/v10/users/@me', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    if (!userResponse.data) {
-      throw { status: 401, message: 'Unauthorized: Invalid access token.' };
+    const { success: userSuccess, data: user } = await fetchUserByToken(accessToken);
+    if (!userSuccess == true || !user) {
+      throw createHttpError('User not found or invalid token', 404);
     }
 
-    req.user = userResponse.data;
+    req.user = user;
     req.accessToken = accessToken;
 
     next();

@@ -60,6 +60,7 @@ async function fetchRolesByUserId(userId) {
       success: true,
       data: rolesResponse.data.roles,
     };
+    
   } catch (error) {
     throw new Error(`Failed to fetch roles: ${error.message}`);
   }

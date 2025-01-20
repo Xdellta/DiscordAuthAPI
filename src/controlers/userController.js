@@ -11,8 +11,8 @@ async function getUserByToken(req, res, next) {
     }
 
     const { success: userSuccess, data: user } = await fetchUserByToken(accessToken);
-    if (!userSuccess || !user) {
-      return next(createHttpError('User not found or invalid token', 404));
+    if (!userSuccess == true || !user) {
+      throw createHttpError('User not found or invalid token', 404);
     }
 
     return res.status(200).json({
@@ -32,17 +32,17 @@ async function getUserRolesByToken(req, res, next) {
     const { accessToken } = req;
 
     if (!accessToken) {
-      return next(createHttpError('Access token is missing', 400));
+      throw createHttpError('Access token is missing', 400);
     }
 
     const { success: userSuccess, data: user } = await fetchUserByToken(accessToken);
-    if (!userSuccess || !user?.id) {
-      return next(createHttpError('User not found or invalid token', 404));
+    if (!userSuccess == true || !user?.id) {
+      throw createHttpError('User not found or invalid token', 404);
     }
 
     const { success: rolesSuccess, data: roles } = await fetchRolesByUserId(user.id);
-    if (!rolesSuccess || !roles) {
-      return next(createHttpError('Roles not found', 404));
+    if (!rolesSuccess == true || !roles) {
+      throw createHttpError('Roles not found', 404);
     }
 
     return res.status(200).json({
