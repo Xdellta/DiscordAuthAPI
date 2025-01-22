@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controlers/authController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { login, loginCallback, logout } = require('../controlers/authController');
+const { isLogged, requireRoles } = require('../middleware/authMiddleware');
 
-router.get('/login', authController.login);
-router.get('/login-callback', authController.loginCallback);
-router.get('/logout', authMiddleware.isLogged, authController.logout);
+router.get('/login', login);
+router.get('/login-callback', loginCallback);
+router.get('/logout', isLogged, logout);
 
 module.exports = router;

@@ -25,13 +25,13 @@ async function login(req, res, next) {
 
 // '/api/auth/login-callback'
 async function loginCallback(req, res, next) {
-  const code = req.query.code;
-
-  if (!code) {
-    throw createHttpError('Missing authorization code', 400);
-  }
-
   try {
+    const code = req.query.code;
+
+    if (!code) {
+      throw createHttpError('Missing authorization code', 400);
+    }
+
     const redirectUri = `${process.env.PROTOCOL}://${process.env.DOMAIN}:${process.env.PORT}/api/auth/login-callback`;
 
     const params = new URLSearchParams({
