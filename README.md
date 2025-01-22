@@ -48,7 +48,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 ### authMiddleware - requireRoles()
 - **Description:** Verification of required roles.
 - **Request:**
-  - `user`: Data retrieved [authentication middleware](#authmiddleware---isloged).
+  - `user`: Data retrieved [authentication middleware - isLoged()](#authmiddleware---isloged).
     ```sh
     {
       "id": "123456789012345678",
@@ -104,8 +104,8 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 - **Method:** `GET`
 - **Description:** Logs out the user by clearing authentication cookies.
 - **Request:**
-  - `accessToken` (string): Verification token, received from [authentication middleware](#authmiddleware---isloged).
-  - `refreshToken` (string): Refresh token, received from [authentication middleware](#authmiddleware---isloged).
+  - `accessToken` (string): Verification token, received from [authentication middleware - isLoged()](#authmiddleware---isloged).
+  - `refreshToken` (string): Refresh token, received from [authentication middleware - isLoged()](#authmiddleware---isloged).
 - **Response:** 
   - **Success (200):** Successfully logged out.
   - **Error (400):** Access token or refresh token missing.
@@ -115,7 +115,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 /api/users/me
 ```
 - **Method:** `GET`
-- **Description:** Gets details of currently authenticated user from [authentication middleware](#authmiddleware---isloged).
+- **Description:** Gets details of currently authenticated user from [authentication middleware - isLoged()](#authmiddleware---isloged).
 - **Request:**
   - `user`: Data retrieved [authentication middleware](#authmiddleware---isloged).
     ```sh
@@ -169,7 +169,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
 - **Method:** `GET`
 - **Description:** Return of user roles in guild
 - **Request:**
-  - `user`: Data retrieved [authentication middleware](#authmiddleware---isloged).
+  - `user`: Data retrieved [authentication middleware - isLoged()](#authmiddleware---isloged).
     ```sh
     {
       "id": "123456789012345678",
