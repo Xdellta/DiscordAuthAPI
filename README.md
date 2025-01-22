@@ -230,10 +230,10 @@ PORT=3000
 
 **4.** Start the server in:<br>
 - Production mode
-```sh
-npm run start
-```
+  ```sh
+  npm run start
+  ```
 - Development mode
-```sh
-npm run dev
-```
+  ```sh
+  npm run dev
+  ```
