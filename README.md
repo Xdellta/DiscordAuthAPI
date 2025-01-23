@@ -200,6 +200,15 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
     ```
   - **Error (404):** User not found.
   - **Error (404):** Roles not found.
+<br>
+
+```sh
+/api/test/helloAdmin
+```
+- **Method:** `GET`
+- **Description:** Endpoint for testing middleware required roles (Admin in this example).
+- **Request:** Data retrieved [authentication middleware - isLoged()](#authmiddleware---isloged) and [authMiddleware - requireRoles()](#authMiddleware---requireRoles)
+- **Response.send:** "Hello Admin" 
 
 <br><br>
 
