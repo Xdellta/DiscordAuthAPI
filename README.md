@@ -43,6 +43,7 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
     }
     ```
   - `accessToken` (string): Verification token.
+  - `isLogged` (boolen): true/false.
 <br>
 
 ### authMiddleware - requireRoles()
@@ -70,6 +71,37 @@ By [Patryk Piotrowski](https://github.com/Xdellta)
     }
     ```
 - **Response:** None
+<br>
+
+### authMiddleware - refreshToken()
+- **Description:** Refreshing the access token based on the refresh token.
+- **Request:**
+  - `refresh_token` (string): Refresh Token Verification Token.
+- **Response:**
+  - `user`:
+    ```sh
+    {
+      "id": "123456789012345678",
+      "username": "example_user",
+      "avatar": "sample_avatar_hash",
+      "discriminator": "1234",
+      "public_flags": 0,
+      "flags": 0,
+      "banner": null,
+      "accent_color": 16711680,
+      "global_name": "ExampleGlobalName",
+      "avatar_decoration_data": null,
+      "banner_color": "#ff5733",
+      "clan": null,
+      "primary_guild": null,
+      "mfa_enabled": true,
+      "locale": "en",
+      "premium_type": 1
+    }
+    ```
+  - `accessToken` (string): Verification token.
+  - `isLogged` (boolen): true.
+  - `access_token`, `refresh_token` in cookie http only (if tokens have been refreshed).
 
 <br><br>
 
